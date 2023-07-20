@@ -108,7 +108,7 @@ class testUser {
 	@WithMockUser(username = "wa", roles = "PROF")
 	@Transactional
 	void testPreAutorizeBad1() {
-		User user = new User("vo", "vo", Roles.ROLE_PROF);
+		User user = new User("vo", "vo", Roles.ROLE_ADMIN);
 		assertThrows(AccessDeniedException.class, () -> userSrv.changePassword(user, "vo", "MonNouveauPW1"));
 	}
 
@@ -116,7 +116,7 @@ class testUser {
 	@WithMockUser(username = "admin", roles = "ADMIN")
 	@Transactional
 	void testPreAutorizeBad2() {
-		User user = new User("vo", "vo", Roles.ROLE_PROF);
+		User user = new User("vo", "vo", Roles.ROLE_ADMIN);
 		assertThrows(CredentialException.class, () -> userSrv.changePassword(user, "vo", "MonNouveauPW1"));
 	}
 
@@ -134,7 +134,7 @@ class testUser {
 	@Transactional
 	void testPreAutorizeBad4() {
 		// le user envoyé n'est pas identique à celui de la bd
-		User user = new User("vo", "xxx", Roles.ROLE_PROF);
+		User user = new User("vo", "xxx", Roles.ROLE_ADMIN);
 		assertThrows(CredentialException.class, () -> userSrv.changePassword(user, "badPw", "newPw"));
 	}
 

@@ -1,5 +1,7 @@
 package org.rina.model;
 
+import java.time.LocalDate;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,26 +16,24 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.NumberFormat;
+
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Data
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Entity(name = "TPROFESSEUR")
-//Rajout d'une contrainte d'unicité sur la table
-@Table(uniqueConstraints = @UniqueConstraint(columnNames = { "nom", "prenom" }))
-public class Professeur {
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = { "nom", "prenom", "dateNaissance" }))
+@Data
+@Entity(name = "TPERSONNEEXTERNE")
+public class PersonneExterne {
+	
 	@Id // Id généré par la base de données
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Getter //pas de setter
-	private Integer id;
-
-	@Getter
-	@OneToOne(optional = false, cascade = {CascadeType.PERSIST,CascadeType.REMOVE})
-	@JoinColumn(name = "FKUSER", unique = true, nullable = false, updatable = false)
-	private User user;
+	private Integer idPE;
 
 	@NotNull
 	@Size(min = 1, max = 40, message = "{elem.nom}")
@@ -45,36 +45,44 @@ public class Professeur {
 	@Column(length = 40, nullable = false)
 	private String prenom;
 
+	@NotNull
+	@Column(nullable = false)
+	@DateTimeFormat( pattern = "yyyy-MM-dd")
+	private LocalDate dateNaissance;
+
 	@Email(message = "{email.nonValide}")
 	@NotNull
-	@Column(length = 50, nullable = false)
+	@Column(length = 40, nullable = false)
+	@Size(min = 4, max = 40, message = "{elem.prenom}")
 	private String email;
 
+	@NumberFormat
+	@NotNull
+	@Column(length = 50)
+	@Size(min = 4, max = 30, message = "{tel.nonValide}")
+	private String tel;
+	
+	@NotNull
+	@Column(nullable = false, updatable = true)
+	@Size(min = 10, max = 125, message = "{}")
+	private String adresse;
+	
+	@NotNull
+	@Column(nullable = false)
+	private TypeExterne typeE;
+	
+	
 	/**
-	 * @param nom
-	 * @param prenom
-	 * @param email
-	 * @param user
+	 * jointure à d'autres classes 
 	 */
-	public Professeur(String nom, String prenom, String email, User user) {
-		this(null, nom, prenom, email, user);
-	}
-
+	
+	@Getter
+	@OneToOne(optional = false, cascade = CascadeType.PERSIST)
+	@JoinColumn(name = "FKUSER", unique = true, nullable = false, updatable = false)
+	private User user;
+	
 	/**
-	 * @param id
-	 * @param user
-	 * @param nom
-	 * @param prenom
-	 * @param email
+	 * Construction 
 	 */
-	public Professeur(Integer id, String nom, String prenom, String email, User user) {
-		assert (user.getRole() == Roles.ROLE_PROF);
-		this.id = id;
-		this.user = user;
-		this.nom = nom;
-		this.prenom = prenom;
-		this.email = email;
-		//this.user.setRole(Roles.ROLE_PROF);
-	}
 
 }
