@@ -1,5 +1,6 @@
 package org.rina.model;
 
+import java.sql.Time;
 import java.time.LocalDate;
 
 import javax.persistence.Column;
@@ -7,53 +8,58 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.validation.constraints.NotBlank;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
-import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 @Data
-@Entity(name = "TRAPPORT")
-public class Rapport {
+@Entity(name = "TACTIVITE")
+public class Activite {
 	
 	@Id 
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer idRA;
-
+	private Integer id;
+	
 	@NotNull
-	@Size(min = 1, max = 50, message = "{elem.nom}")
 	@Column(length = 50, nullable = false)
 	private String nom;
-
-	@NotNull
-	@Size(min = 1, max = 50, message = "{elem.prenom}")
-	@Column(length = 50, nullable = false)
-	private String prenom;
 	
 	@NotNull
 	@Column(nullable = false)
-	private TypeExterne typeE;
+	private LocalDate date;
 	
 	@NotNull
 	@Column(nullable = false)
-	@DateTimeFormat( pattern = "yyyy-MM-dd")
-	private LocalDate dateVisite;
+	private Time time;
 
-	@NotBlank
-	@Column(nullable = false)
+	@Column(length = 800, nullable = true)
 	private String description;
 	
 	/**
 	 * jointure à d'autres classes 
 	 */
 	
-	
+	@ManyToOne
+	@JoinColumn(name = "FKEtablissement", nullable = false)
+	private Etablissement etablissement;
+
 	/**
 	 * Construction 
 	 */
+	
+	public Activite(Integer id, String nom, LocalDate date, Time time, String description,
+			Etablissement etablissement) {
+		
+		this.id = id;
+		this.nom = nom;
+		this.date = date;
+		this.time = time;
+		this.description = description;
+		this.etablissement = etablissement;
+	}
+	
 }

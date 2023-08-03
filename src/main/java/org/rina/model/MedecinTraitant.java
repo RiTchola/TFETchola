@@ -1,39 +1,29 @@
 package org.rina.model;
 
-import java.time.LocalDate;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.NumberFormat;
 
 import lombok.AccessLevel;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Table(uniqueConstraints = @UniqueConstraint(columnNames = { "nom", "prenom", "dateNaissance" }))
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = { "nom", "prenom" }))
 @Data
 @Entity(name = "TMEDECINTRAITANT")
 public class MedecinTraitant {
 	
-	@Id // Id généré par la base de données
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Getter //pas de setter
-	private Integer idMT;
+	@Id  // identifiant
+	@Column(length = 50, nullable = false)
+	private String numInami;
 
 	@NotNull
 	@Size(min = 1, max = 40, message = "{elem.nom}")
@@ -44,11 +34,6 @@ public class MedecinTraitant {
 	@Size(min = 1, max = 40, message = "{elem.prenom}")
 	@Column(length = 40, nullable = false)
 	private String prenom;
-
-	@NotNull
-	@Column(nullable = false)
-	@DateTimeFormat( pattern = "yyyy-MM-dd")
-	private LocalDate dateNaissance;
 
 	@Email(message = "{email.nonValide}")
 	@NotNull
@@ -72,18 +57,20 @@ public class MedecinTraitant {
 	@Size(min = 10, max = 125, message = "{}")
 	private String adresse;
 	
-	@NotNull
-	@Column(nullable = false)
-	private String numInami;
-	
-	/**
-	 * jointure à d'autres classes 
-	 */
-	
-	
-	
 	/**
 	 * Construction 
 	 */
+	
+	public MedecinTraitant( String numInami, String nom, String prenom,
+			String email, String tel1, String tel2, String adresse) {
+		
+		this.numInami = numInami;
+		this.nom = nom;
+		this.prenom = prenom;
+		this.email = email;
+		this.tel1 = tel1;
+		this.tel2 = tel2;
+		this.adresse = adresse;	
+	}
 
 }

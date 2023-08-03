@@ -1,20 +1,22 @@
 package org.rina.model;
 
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.NumberFormat;
 
 import lombok.AccessLevel;
@@ -23,18 +25,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 @Data
 @Entity(name="TETABLISSEMENT")
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = { "nom", "adresse" }))
 public class Etablissement {
 	
-	@Id 
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer idE;
-	
-	@NotNull
-	@Size(min = 3, max = 50, message = "{}")
-	@Column(nullable = false)
+	@Id  // identifiant
+	@Column(length = 50, nullable = false)
 	private String nom;
 	
 	@Email(message = "{email.nonValide}")
@@ -66,7 +64,7 @@ public class Etablissement {
 	
 	@NotNull
 	@Column(nullable = false)
-	@DateTimeFormat( pattern = "yyyy-MM-dd")
+	//@DateTimeFormat( pattern = "yyyy-MM-dd")
 	private LocalDate dateCreation;
 	
 	/**
@@ -77,10 +75,42 @@ public class Etablissement {
 	@OneToOne(optional = false, cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "FKUSER", unique = true, nullable = false, updatable = false)
 	private User user;
+
+	// Le nom "seance" doit correspondre au nom de l'attribut dans "Presence"
+	@OneToMany(mappedBy = "etablissement")
+	private Set<RapportQuotidien> rapportQuotidiens = new HashSet<>(); 
+	public Set<RapportQuotidien> getRapportQuotidien() { 
+			return rapportQuotidiens;
+	}
+	
+	@OneToMany(mappedBy = "etablissement")
+	private Set<RapportVisite> rapportVisites = new HashSet<>(); 
+	public Set<RapportVisite> getRapportVisite() { 
+			return rapportVisites;
+	}
 	
 	/**
 	 * Construction 
+	 * @param nom
+	 * @param email1
+	 * @param tel1
+	 * @param adresse
+	 * @param dateCreation
+	 * @param user
 	 */
+	public Etablissement(String nom, String email1, String email2, String tel1,
+			String tel2, String adresse, LocalDate dateCreation,
+			User user) {
+		
+		assert (user.getRole() == Roles.ROLE_ETABLISSEMENT);
+		this.nom = nom;
+		this.email1 = email1;
+		this.email2 = email2;
+		this.tel1 = tel1;
+		this.tel2 = tel2;
+		this.adresse = adresse;
+		this.dateCreation = dateCreation;
+		this.user = user;
+	}
 	
-
 }

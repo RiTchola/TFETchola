@@ -1,5 +1,5 @@
 package org.rina.controller.dto;
 
-public class RapportDto {
+public class EvenementDto {
 
 }

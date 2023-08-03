@@ -2,6 +2,9 @@ package org.rina.model;
 
 import java.time.LocalDate;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -16,7 +20,6 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.NumberFormat;
 
 import lombok.AccessLevel;
@@ -33,7 +36,7 @@ public class PersonneContact {
 	@Id // Id généré par la base de données
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Getter //pas de setter
-	private Integer idPC;
+	private Integer id;
 
 	@NotNull
 	@Size(min = 1, max = 40, message = "{elem.nom}")
@@ -47,7 +50,7 @@ public class PersonneContact {
 
 	@NotNull
 	@Column(nullable = false)
-	@DateTimeFormat( pattern = "yyyy-MM-dd")
+	//@DateTimeFormat( pattern = "yyyy-MM-dd")
 	private LocalDate dateNaissance;
 
 	@Email(message = "{email.nonValide}")
@@ -74,11 +77,11 @@ public class PersonneContact {
 	
 	@NotNull
 	@Column(nullable = false)
-	private StatutM statutM;
+	private StatutM statut;
 	
 	@NotNull
 	@Column(nullable = false)
-	private TypeContact typeC;
+	private TypePersonne choix;
 	
 	/**
 	 * jointure à d'autres classes 
@@ -88,9 +91,41 @@ public class PersonneContact {
 	@OneToOne(optional = false, cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "FKUSER", unique = true, nullable = false, updatable = false)
 	private User user;
+
+	@ManyToMany(mappedBy = "personneContacts")
+	private Set<Resident> residents = new HashSet<Resident>();
+	public Set<Resident> getResidents() { return residents;}
 	
 	/**
-	 * Construction 
+	 * Construction
+	 * @param id
+	 * @param nom
+	 * @param prenom
+	 * @param dateNaissance
+	 * @param email
+	 * @param tel1 
+	 * @param adresse
+	 * @param statutM
+	 * @param choix
+	 * @param user
+	 * @param 
 	 */
-
+	
+	public PersonneContact(Integer id, String nom, String prenom, LocalDate dateNaissance,String email, 
+			String tel1, String tel2, String adresse, StatutM statut, TypePersonne choix, User user) {
+		
+		assert (user.getRole() == Roles.ROLE_PCONTACT);
+		this.id = id;
+		this.nom = nom;
+		this.prenom = prenom;
+		this.dateNaissance = dateNaissance;
+		this.email = email;
+		this.tel1 = tel1;
+		this.tel2 = tel2;
+		this.adresse = adresse;
+		this.statut = statut;
+		this.choix = choix;
+		this.user = user;
+	}
+	
 }

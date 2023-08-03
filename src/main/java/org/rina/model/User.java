@@ -16,7 +16,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED, force = true)
 @Data
-public final class User implements Serializable{
+public class User implements Serializable{
 
 	/**
 	 * 
