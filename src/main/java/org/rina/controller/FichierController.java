@@ -123,7 +123,7 @@ public class FichierController {
 	 * @param id du fichier
 	 * @return le mapping de redirection
 	 */
-	@PostMapping("/{code}/delete")
+	@PostMapping("/{id}/delete")
 	public String deleteFichier(@PathVariable Integer id) throws IOException {
 
 		if (fichierService.existsById(id)) {

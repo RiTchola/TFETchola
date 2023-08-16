@@ -117,7 +117,7 @@ public class PersonneContactDto {
 	            persC.getTel2(),
 	            persC.getAdresse(),
 	            persC.getStatut(),
-	            persC.getChoix(),
+	            persC.getChoix(), 
 	            uDto
 	        );
 	     return persCDto;
