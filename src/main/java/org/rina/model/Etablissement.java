@@ -64,7 +64,6 @@ public class Etablissement {
 	
 	@NotNull
 	@Column(nullable = false)
-	//@DateTimeFormat( pattern = "yyyy-MM-dd")
 	private LocalDate dateCreation;
 	
 	/**

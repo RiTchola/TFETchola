@@ -1,12 +1,12 @@
 package org.rina.service;
 
 import java.time.LocalDate;
+
 import java.util.List;
 import java.util.Optional;
 
 import org.rina.dao.ICommuniqueJpaDao;
 import org.rina.model.Communique;
-import org.rina.model.Etablissement;
 
 public class CommuniqueServices {
 	
@@ -20,7 +20,7 @@ public class CommuniqueServices {
 	 * @param date
 	 * @return
 	 */
-	public List<Communique> findCommuniqueByDate(LocalDate date, Etablissement etab) {
+	public List<Communique> findCommuniqueByDate(LocalDate date, String etab) {
 		return communiquedao.findCommuniqueByDate(date, etab);
 	}
 
@@ -29,14 +29,6 @@ public class CommuniqueServices {
 	 */
 	public List<Communique> findAll() {
 		return communiquedao.findAll();
-	}
-
-	/**
-	 * @param etablissement
-	 * @return
-	 */
-	public List<Communique> findAllByEtablissement(Etablissement etablissement) {
-		return communiquedao.findAllByEtablissement(etablissement);
 	}
 
 	/**
@@ -60,9 +52,16 @@ public class CommuniqueServices {
 	 */
 	public void deleteById(Integer id) {
 		communiquedao.deleteById(id);
+	}	
+	
+	/**
+	 * @return
+	 * @see org.rina.dao.ICommuniqueJpaDao#findAllCommuniqueOrderByDateDesc()
+	 */
+	public List<Communique> findAllCommuniqueOrderByDateDesc() {
+		return communiquedao.findAllCommuniqueOrderByDateDesc();
 	}
 
-	
 	/**
 	 * Ajout d'un nouveau Communique
 	 * 
@@ -73,7 +72,7 @@ public class CommuniqueServices {
 		return update(c1);
 	}
 
-	private Communique update(Communique c1) {
+	public Communique update(Communique c1) {
 		assert c1 != null : "Le communique doit exister";
 		return communiquedao.save(c1);
 	}

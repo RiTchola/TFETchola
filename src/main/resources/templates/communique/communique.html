@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	layout:decorate="~{layout}">
+<head>
+<title th:text="#{communique.detail.titre}">Détail du communique</title>
+</head>
+
+<body>
+
+	<main class="container" layout:fragment="content">
+		<div class="row">
+			<div class="col-1">
+				<a th:href="@{/communique/liste}"><i class="fa fa-chevron-left"></i></a>
+			</div>
+			<div class="col-11">
+				<h3 th:text="#{communique.detail.titre}">Titre</h3>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-4" th:text="#{communique.date}"></div>
+
+			<div class="col-8" th:text="${communique.date}">Valeur</div>
+
+		</div>
+
+		<div class="row">
+			<div class="col-4" th:text="#{communique.titre}"></div>
+
+			<div class="col-8" th:text="${communique.titre}">Valeur</div>
+
+		</div>
+		
+		<div class="row">
+			<div class="col-4" th:text="#{communique.contenu}"></div>
+
+			<div class="col-8" th:text="${communique.contenu}">Valeur</div>
+
+		</div>
+
+		<div class="row">
+			<div  sec:authorize="hasAnyRole('ETABLISSEMENT','ADMIN')" class="col p-2 text-left">
+				<a class="btn btn-outline-success"
+					th:href="@{|/communique/${communique.id}/update|}"
+					th:text="#{action.update}+' '+#{communique}"></a>
+			</div>
+		</div>
+	</main>
+	
+	<div layout:fragment="optional">
+	  <script th:src="@{/webjars/bootbox/bootbox.js}"></script>
+	  <script th:src="@{/js/myJS.js}"></script>
+	</div>
+
+</body>
+</html>

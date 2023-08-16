@@ -1,6 +1,5 @@
 package org.rina.model;
 
-
 import java.util.HashSet;
 import java.util.Set;
 
@@ -45,7 +44,7 @@ public class PersonneExterne {
 	@Email(message = "{email.nonValide}")
 	@NotNull
 	@Column(length = 40, nullable = false)
-	@Size(min = 4, max = 40, message = "{elem.prenom}")
+	@Size(min = 4, max = 40, message = "{}")
 	private String email;
 
 	@NumberFormat

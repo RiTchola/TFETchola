@@ -36,7 +36,7 @@ public class Activite {
 	@Column(nullable = false)
 	private Time time;
 
-	@Column(length = 800, nullable = true)
+	@Column(length = 800, nullable = false)
 	private String description;
 	
 	/**

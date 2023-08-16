@@ -15,11 +15,11 @@ public interface IEtablissementJpaDao extends JpaRepository<Etablissement, Strin
 	
 	// Utilisation d'un Query natif pour avoir les informations d'une activité
 	@Query(value = "select r.id, r.nom, r.prenom from TETABLISSEMENT e join TRESIDENT r where e.NOM=?1", nativeQuery = true)
-	List<Resident> findAllResidByEtablissement(Etablissement etablissement);
+	List<Resident> findAllResidByEtablissement(String idEtab);
 	
 	// Utilisation d'un Query natif pour avoir les informations d'une activité
 	@Query(value = "select count(r.id) from TETABLISSEMENT e join TRESIDENT r where e.NOM=?1", nativeQuery = true)
-	int countAllResidByEtablissement(Etablissement etablissement);
+	int countAllResidByEtablissement(String idEtab);
 	
 	@Query(value = "select * from TETABLISSEMENT e where e.nom=?1 and e.adresse=?2", nativeQuery = true)
 	Optional<Etablissement> findByNameAndAdresse(String nom, String adresse);

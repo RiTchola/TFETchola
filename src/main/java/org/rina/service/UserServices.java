@@ -1,5 +1,6 @@
 package org.rina.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import javax.security.auth.login.CredentialException;
@@ -74,5 +75,14 @@ public class UserServices {
 	public boolean existsById(String username) {
 		return userDao.existsById(username);
 	}
+
+	/**
+	 * @return
+	 */
+	public List<String> getUsernameEtab() {
+		return userDao.getUsernameEtab();
+	}
+	
+	
 
 }

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout}">
+<head>
+<title th:text="#{cours.liste.titre}">Liste des cours</title>
+</head>
+
+<body>
+	<main class="container" layout:fragment="content">
+
+		<div class="row">
+			<div class="col">
+				<h3 th:text="#{cours.liste.titre}"></h3>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col">
+				<div th:if="${!coursList.isEmpty()}">
+					<table class="table">
+						<thead>
+							<tr>
+								<th th:text="#{cours.code}"></th>
+								<th th:text="#{cours.nom}"></th>
+								<th th:text="#{cours.nbSections}"></th>
+								<th sec:authorize="hasAnyRole('ADMIN','PROF','SECRETARIAT')"
+									th:text="#{actionsCRUD}"></th>
+							</tr>
+						</thead>
+
+						<tbody>
+							<tr th:each="cours:${coursList}">
+								<td th:text="${cours.code}"></td>
+								<td th:text="${cours.nom}"></td>
+								<td th:text="${#sets.size(cours.sections)}"></td>
+								<td><a th:href="@{'/cours/'+ ${cours.code}}"> 
+										<font color="green"><i class="fa fa-eye"></i></font>
+									</a>
+								 	<a sec:authorize="hasAnyRole('PROF','ADMIN')"
+										th:href="@{'/cours/'+ ${cours.code} +'/update'}"> 
+										<i class="fa-solid fa-pen" ></i> 
+									</a>
+								 	<span sec:authorize="hasAnyRole('SECRETARIAT','ADMIN')"
+										th:msgDelete="#{msgConfirmDelete}"
+										th:lienDelete="@{'/cours/__${cours.code}__/delete'}"
+										th:csrfToken="${#ctx.containsVariable('_csrf')}? ${_csrf.token}:''"
+										th:csrfName="${#ctx.containsVariable('_csrf')}? ${_csrf.parameterName}:'_csrf'"
+										th:onclick='javascript:
+									    var lien= this.getAttribute("lienDelete");
+									    var csrf={};
+									    csrf[this.getAttribute("csrfName")]=this.getAttribute("csrfToken");
+									    bootbox.confirm(this.getAttribute("msgDelete"),
+									    function(ok){
+									      if (ok){ post(lien,csrf);}
+									     })
+									    '>
+										<i class="fa fa-trash text-danger"></i>
+								</span> 
+								<a sec:authorize="hasAnyRole({'ADMIN','SECRETARIAT'})"
+									th:href="@{'/module/add/'+ ${cours.code}}"> <i
+									class="fa-solid fa-plus" title="Ajouter un module"></i>
+								</a>
+							  </td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div th:unless="${!coursList.isEmpty()}" th:text="#{cours.Aucun}">
+					La liste de cours est vide</div>
+			</div>
+		</div>
+		<div class="col" sec:authorize="hasAnyRole('ADMIN')">
+			<a class="btn btn-outline-success" th:href="@{/cours/add}"
+				th:text="#{action.add}+' '+#{cours}"></a>
+		</div>
+	</main>
+	<div layout:fragment="optional">
+		<script th:src="@{/webjars/bootbox/bootbox.js}"></script>
+		<script th:src="@{/js/myJS.js}"></script>
+	</div>
+</body>
+</html>
+

@@ -1,11 +1,11 @@
 package org.rina.service;
 
 import java.util.List;
+
 import java.util.Optional;
 
 import org.rina.dao.IMedecinTraitantJpaDao;
 import org.rina.model.MedecinTraitant;
-import org.rina.model.Etablissement;
 import org.rina.model.Resident;
 
 public class MedecinTraitantServices {
@@ -21,8 +21,8 @@ public class MedecinTraitantServices {
 		 * @param etab
 		 * @return
 		 */
-		public List<Resident> findResidByMedecin(MedecinTraitant medecin, Etablissement etab) {
-			return medecinTraitantdao.findResidByMedecin(medecin, etab);
+		public List<Resident> findResidByMedecin(String idmt, String etab) {
+			return medecinTraitantdao.findResidByMedecin(idmt, etab);
 		}
 
 		/**
@@ -37,7 +37,7 @@ public class MedecinTraitantServices {
 		 * @param etab
 		 * @return
 		 */
-		public int findMedecinByEtablissement(Etablissement etab) {
+		public int findMedecinByEtablissement(String etab) {
 			return medecinTraitantdao.findMedecinByEtablissement(etab);
 		}
 

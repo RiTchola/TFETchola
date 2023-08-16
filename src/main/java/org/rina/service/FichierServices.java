@@ -9,81 +9,87 @@ import org.rina.model.Fichier;
 import org.rina.model.PersonneContact;
 
 public class FichierServices {
-	
+
 	private IFichierJpaDao fichierdao;
-		
-		public FichierServices(IFichierJpaDao fichierdao) {
-			this.fichierdao = fichierdao;
-		}
 
-		/**
-		 * @param id
-		 * @return
-		 */
-		public Optional<PersonneContact> findPCByFichier(Integer id) {
-			return fichierdao.findPCByFichier(id);
-		}
+	public FichierServices(IFichierJpaDao fichierdao) {
+		this.fichierdao = fichierdao;
+	}
 
-		/**
-		 * @param personneContact
-		 * @return
-		 */
-		public List<Fichier> findByPersonneContactOrderByDate(PersonneContact personneContact) {
-			return fichierdao.findByPersonneContactOrderByDate(personneContact);
-		}
+	/**
+	 * @param id
+	 * @return
+	 */
+	public Optional<PersonneContact> findPCByFichier(Integer id) {
+		return fichierdao.findPCByFichier(id);
+	}
 
-		/**
-		 * @param date
-		 * @return
-		 */
-		public List<Fichier> findAllFichiersOrderByDate(LocalDate date) {
-			return fichierdao.findAllFichiersOrderByDate(date);
-		}
+	/**
+	 * @param personneContact
+	 * @return
+	 */
+	public List<Fichier> findByPersonneContactOrderByDate(PersonneContact personneContact) {
+		return fichierdao.findByPersonneContactOrderByDate(personneContact);
+	}
 
-		/**
-		 * @return
-		 */
-		public List<Fichier> findAll() {
-			return fichierdao.findAll();
-		}
+	/**
+	 * @param date
+	 * @return
+	 */
+	public List<Fichier> findAllFichiersOrderByDate(LocalDate date) {
+		return fichierdao.findAllFichiersOrderByDate(date);
+	}
 
-		/**
-		 * @param id
-		 * @return
-		 */
-		public Optional<Fichier> findById(Integer id) {
-			return fichierdao.findById(id);
-		}
+	/**
+	 * @return
+	 */
+	public List<Fichier> findAll() {
+		return fichierdao.findAll();
+	}
 
-		/**
-		 * @param id
-		 * @return
-		 */
-		public boolean existsById(Integer id) {
-			return fichierdao.existsById(id);
-		}
+	/**
+	 * @param id
+	 * @return
+	 */
+	public Optional<Fichier> findById(Integer id) {
+		return fichierdao.findById(id);
+	}
 
-		/**
-		 * @param id
-		 */
-		public void deleteById(Integer id) {
-			fichierdao.deleteById(id);
-		}
-		
-		/**
-		 * Ajout d'un nouveau Fichier
-		 * 
-		 * @param c1
-		 * @return
-		 */
-		public Fichier insert(Fichier f1) {
-			return update(f1);
-		}
+	/**
+	 * @param id
+	 * @return
+	 */
+	public boolean existsById(Integer id) {
+		return fichierdao.existsById(id);
+	}
 
-		private Fichier update(Fichier f1) {
-			assert f1 != null : "Le fichier doit exister";
-			return fichierdao.save(f1);
-		}	
+	/**
+	 * @param id
+	 */
+	public void deleteById(Integer id) {
+		fichierdao.deleteById(id);
+	}
 
-		
+	/**
+	 * @return
+	 */
+	public List<Fichier> findAllFichierOrderByDateDesc() {
+		return fichierdao.findAllFichierOrderByDateDesc();
+	}
+
+	/**
+	 * Ajout d'un nouveau Fichier
+	 * 
+	 * @param c1
+	 * @return
+	 */
+	public Fichier insert(Fichier f1) {
+		return update(f1);
+	}
+
+	private Fichier update(Fichier f1) {
+		assert f1 != null : "Le fichier doit exister";
+		return fichierdao.save(f1);
+	}
+
 }

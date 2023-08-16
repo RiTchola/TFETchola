@@ -29,6 +29,10 @@ public class Communique {
 	
 	@NotNull
 	@Column(nullable = false)
+	private String titre;
+	
+	@NotNull
+	@Column(nullable = false)
 	private String contenu;
 	
 	/**
@@ -43,10 +47,11 @@ public class Communique {
 	 * Construction 
 	 */
 	
-	public Communique(Integer id, LocalDate date, String contenu, Etablissement etablissement) {
+	public Communique(Integer id, LocalDate date, String titre,String contenu, Etablissement etablissement) {
 		
 		this.id = id;
 		this.date = date;
+		this.titre = titre;
 		this.contenu = contenu;
 		this.etablissement = etablissement;
 	}

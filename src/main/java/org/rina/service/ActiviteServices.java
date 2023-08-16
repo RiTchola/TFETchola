@@ -1,13 +1,13 @@
 package org.rina.service;
 
 import java.sql.Time;
+
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
 import org.rina.dao.IActiviteJpaDao;
 import org.rina.model.Activite;
-import org.rina.model.Etablissement;
 
 public class ActiviteServices {
 	
@@ -21,7 +21,7 @@ public class ActiviteServices {
 	 * @param nom
 	 * @return
 	 */
-	public List<Activite> findActivityByName(String nom ,Etablissement etab) {
+	public List<Activite> findActivityByName(String nom ,String etab) {
 		return activitedao.findActivityByName(nom, etab);
 	}
 
@@ -29,7 +29,7 @@ public class ActiviteServices {
 	 * @param nom
 	 * @return
 	 */
-	public boolean existByName(String nom, Etablissement etab) {
+	public boolean existByName(String nom, String etab) {
 		return activitedao.existByName(nom, etab);
 	}
 	
@@ -44,8 +44,8 @@ public class ActiviteServices {
 	 * @param etablissement
 	 * @return
 	 */
-	public List<Activite> findAllByEtablissement(Etablissement etablissement) {
-		return activitedao.findAllByEtablissement(etablissement);
+	public List<Activite> findAllByEtablissement(String etab) {
+		return activitedao.findAllByEtablissement(etab);
 	}
 
 	/**
@@ -82,7 +82,7 @@ public class ActiviteServices {
 	 * @param date
 	 * @return
 	 */
-	public List<Activite> findActivityByDate(LocalDate date, Etablissement etab) {
+	public List<Activite> findActivityByDate(LocalDate date, String etab) {
 		return activitedao.findActivityByDate(date, etab);
 	}
 
@@ -93,7 +93,7 @@ public class ActiviteServices {
 	 * @param time
 	 * @return
 	 */
-	public boolean existByActivity(String nom, LocalDate date, Time time, Etablissement etab) {
+	public boolean existByActivity(String nom, LocalDate date, Time time,String etab) {
 		return activitedao.existByActivity(nom, date, time, etab);
 	}
 	

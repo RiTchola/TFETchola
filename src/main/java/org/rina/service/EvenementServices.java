@@ -1,11 +1,11 @@
 package org.rina.service;
 
 import java.time.LocalDate;
+
 import java.util.List;
 import java.util.Optional;
 
 import org.rina.dao.IEvenementJpaDao;
-import org.rina.model.Etablissement;
 import org.rina.model.Evenement;
 
 public class EvenementServices {
@@ -20,7 +20,7 @@ public class EvenementServices {
 		 * @param dateEvent
 		 * @return
 		 */
-		public List<Evenement> findEventByDate(LocalDate dateEvent, Etablissement etab) {
+		public List<Evenement> findEventByDate(LocalDate dateEvent, String etab) {
 			return evenementdao.findEventByDate(dateEvent, etab);
 		}
 
@@ -37,8 +37,8 @@ public class EvenementServices {
 		 * @param etablissement
 		 * @return
 		 */
-		public List<Evenement> findAllByEtablissement(Etablissement etablissement) {
-			return evenementdao.findAllByEtablissement(etablissement);
+		public List<Evenement> findAllByEtablissement(String etab) {
+			return evenementdao.findAllByEtablissement(etab);
 		}
 
 		/**

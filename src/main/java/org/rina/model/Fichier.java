@@ -11,6 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -31,6 +33,9 @@ public class Fichier {
 	@Column(nullable = false)
 	private LocalDate date;
 	
+	@NotNull
+	private MultipartFile file;
+	
 	/**
 	 * jointure à d'autres classes 
 	 */
@@ -41,11 +46,19 @@ public class Fichier {
 	/**
 	 * Construction 
 	 */
-	public Fichier(Integer id, String typeF, LocalDate date, PersonneContact personneContact) {
+	/**
+	 * @param id
+	 * @param typeF
+	 * @param date
+	 * @param file
+	 * @param personneContact
+	 */
+	public Fichier(Integer id, String typeF, LocalDate date, MultipartFile file, PersonneContact personneContact) {
 		
 		this.id = id;
 		this.typeF = typeF;
 		this.date = date;
+		this.file = file;
 		this.personneContact = personneContact;
 	}	
 

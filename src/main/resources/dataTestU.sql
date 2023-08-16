@@ -50,11 +50,11 @@ MERGE INTO TRESIDENT(ID,NOM,PRENOM,DATE_NAISSANCE,EMAIL,TEL,ADRESSE,STATUT,DATE_
 alter table TRESIDENT ALTER COLUMN ID RESTART WITH (select max(id)+1 from tresident);
 
 MERGE INTO TPERSONNEEXTERNE(ID,NOM,PRENOM,EMAIL,TEL,CHOIX) values
-(1,'MOUTON','Aristide','moutonast@gmail.com','0475467213',3),
-(2,'VANDERBEURK','Marthe','sexymat@gmail.com','098342176',8),
+(1,'MOUTON','Aristide','moutonast@gmail.com','0475467213',1),
+(2,'VANDERBEURK','Marthe','sexymat@gmail.com','098342176',2),
 (3,'SEUKAM','Elysée','LBByve@yahoo.com','0456778899',4),
 (4,'TURNS','Steve','pineaple@gmail.com','071238945',7),
-(5,'LACHEVRE','Akim','akimla@yahoo.com','0498123456',5),
+(5,'LACHEVRE','Akim','akimla@yahoo.com','0498123456',1),
 (6,'RASTAMAN','Julio','exman@gmail.com','0985432365',0);
 --Réinitialise le compteur identity 
 alter table TPERSONNEEXTERNE ALTER COLUMN ID RESTART WITH (select max(id)+1 from tpersonneexterne);
@@ -62,7 +62,13 @@ alter table TPERSONNEEXTERNE ALTER COLUMN ID RESTART WITH (select max(id)+1 from
 MERGE INTO TRAPPORTVISITE(ID,DATE_VISITE,COMMENTAIRE,FKETABLISSEMENT,FKPERSONNE_EXTERNE,FKRESIDENT) values
 (1,'2022-12-03','il était très content de me voir','RESIDENCE NAZARETTE',3,4),
 (2,'2023-02-19','il ne voulais pas suivre son traitement ; après plusieurs négociations nous avons fait quelques exercices. Il semble troublé, mais je sais pour quel raison','RESIDENCE NAZARETTE',5,1),
-(3,'2023-04-23','je ne suis pas vraiment rassuré de sa prise ne charge , mais il ne se plaint pas','RESIDENCE NAZARETTE',2,6);
+(3,'2023-04-23','je ne suis pas vraiment rassuré de sa prise ne charge , mais il ne se plaint pas','RESIDENCE NAZARETTE',2,2),
+(4,'2022-11-08','il était très content de me voir','RESIDENCE NAZARETTE',1,1),
+(5,'2022-12-03','il était très content de me voir','RESIDENCE NAZARETTE',3,3),
+(6,'2023-02-03','il était très content de me voir','RESIDENCE NAZARETTE',4,3),
+(7,'2023-05-03','il se portait bien','RESIDENCE NAZARETTE',1,5),
+(8,'2022-05-12','il se portait bien','RESIDENCE NAZARETTE',6,5),
+(9,'2022-05-12','il se portait super hyper bien','RESIDENCE NAZARETTE',5,4);
 --Réinitialise le compteur identity 
 alter table TRAPPORTVISITE ALTER COLUMN ID RESTART WITH (select max(id)+1 from trapportVisite);
  
@@ -81,6 +87,7 @@ MERGE INTO TLIAISON(FKRESIDENT,FKPERSONNECONTACT) VALUES
 MERGE INTO TVISITE(FKRESIDENT,FKPERSONNEEXTERNE) VALUES
 (1,1),
 (1,5),
+(4,3),
 (2,2),
 (3,3),
 (3,4),

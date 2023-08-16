@@ -160,24 +160,36 @@ public class Resident {
 			return rapportVisites;
 	}
 	
-
 	/**
-	 * Construction
-	 * 
-	 * @param
-	 * @param
-	 * @param
-	 * @param
-	 * @param
-	 * @param
+	 * @param id
+	 * @param nom
+	 * @param prenom
+	 * @param dateNaissance
+	 * @param email
+	 * @param tel
+	 * @param adresse
+	 * @param statut
+	 * @param dateEntree
+	 * @param motifEntree
+	 * @param dateSortie
+	 * @param motifSortie
+	 * @param etatSante
+	 * @param antMedical
+	 * @param antChirugical
+	 * @param nbEnfant
+	 * @param chambre
+	 * @param user
+	 * @param medecinTraitant
+	 * @param etablissement
+	 * @param personneContacts
 	 */
-	
 	public Resident(Integer id, String nom, String prenom, LocalDate dateNaissance, String email,
 			String tel, String adresse, StatutM statut, LocalDate dateEntree, String motifEntree,
 			LocalDate dateSortie, String motifSortie, String etatSante, String antMedical,
-			String antChirugical, Integer nbEnfant, String chambre, User user,
-			MedecinTraitant medecinTraitant, Etablissement etablissement) {
-		
+			String antChirugical, Integer nbEnfant, String chambre, User user, MedecinTraitant medecinTraitant, 
+			Etablissement etablissement) {
+
+		assert (user.getRole() == Roles.ROLE_RESIDENT);
 		this.id = id;
 		this.nom = nom;
 		this.prenom = prenom;

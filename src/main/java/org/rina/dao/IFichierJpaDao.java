@@ -1,6 +1,7 @@
 package org.rina.dao;
 
 import java.time.LocalDate;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -20,4 +21,7 @@ public interface IFichierJpaDao extends JpaRepository<Fichier, Integer>{
 	List<Fichier> findByPersonneContactOrderByDate (PersonneContact personneContact);
 	
 	List<Fichier> findAllFichiersOrderByDate (LocalDate date);
+	
+	@Query(value = "SELECT * FROM TFICHIER f ORDER BY f.DATE DESC", nativeQuery = true )
+	List<Fichier> findAllFichierOrderByDateDesc ();
 }
