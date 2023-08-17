@@ -20,6 +20,9 @@ public class FichierDto {
 	private Integer id;
 	
 	@NotBlank
+	private String nomFichier;
+	
+	@NotBlank
     private String typeF;
 	
 	@NotNull
@@ -39,9 +42,10 @@ public class FichierDto {
 	 * @param document
 	 * @param personContactId
 	 */
-	public FichierDto(Integer id, String typeF, LocalDate date, MultipartFile file, Integer personContactId) {
+	public FichierDto(Integer id, String nomFichier, String typeF, LocalDate date, MultipartFile file, Integer personContactId) {
 		
 		this.id = id;
+		this.nomFichier = nomFichier;
 		this.typeF = typeF;
 		this.date = date;
 		this.file = file;
@@ -54,7 +58,7 @@ public class FichierDto {
 	 * @return
 	 */
 	public Fichier toFichier(PersonneContact persC) {
-		return new Fichier(id, typeF, date, file, persC);
+		return new Fichier(id, nomFichier, typeF, date, file, persC);
 		
 	}
 
@@ -66,6 +70,7 @@ public class FichierDto {
     public static FichierDto toDto(Fichier fichier) {
     	return new FichierDto(
             fichier.getId(),
+            fichier.getNomFichier(),
             fichier.getTypeF(),
             fichier.getDate(),
             fichier.getFile(), 

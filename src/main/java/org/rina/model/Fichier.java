@@ -24,6 +24,10 @@ public class Fichier {
 	@Id 
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	
+	@NotNull
+	@Column(length = 100, nullable = false)
+	private String nomFichier;
 
 	@NotNull
 	@Column(length = 50, nullable = false)
@@ -45,17 +49,19 @@ public class Fichier {
 
 	/**
 	 * Construction 
-	 */
-	/**
+	 *
 	 * @param id
+	 * @param nomFichier
 	 * @param typeF
 	 * @param date
 	 * @param file
 	 * @param personneContact
 	 */
-	public Fichier(Integer id, String typeF, LocalDate date, MultipartFile file, PersonneContact personneContact) {
+	public Fichier(Integer id, String nomFichier, String typeF, LocalDate date,
+			MultipartFile file, PersonneContact personneContact) {
 		
 		this.id = id;
+		this.nomFichier = nomFichier;
 		this.typeF = typeF;
 		this.date = date;
 		this.file = file;

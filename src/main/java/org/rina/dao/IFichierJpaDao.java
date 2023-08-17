@@ -24,4 +24,8 @@ public interface IFichierJpaDao extends JpaRepository<Fichier, Integer>{
 	
 	@Query(value = "SELECT * FROM TFICHIER f ORDER BY f.DATE DESC", nativeQuery = true )
 	List<Fichier> findAllFichierOrderByDateDesc ();
+	
+	@Query(value = "SELECT * FROM TFICHIER f WHERE f.nom_fichier=?1", nativeQuery = true )
+	Optional<Fichier> findByNomFichier (String nomFichier);
+	
 }

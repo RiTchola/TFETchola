@@ -76,6 +76,14 @@ public class FichierServices {
 	public List<Fichier> findAllFichierOrderByDateDesc() {
 		return fichierdao.findAllFichierOrderByDateDesc();
 	}
+	
+	/**
+	 * @param nomFichier
+	 * @return
+	 */
+	public Optional<Fichier> findByNomFichier(String nomFichier) {
+		return fichierdao.findByNomFichier(nomFichier);
+	}
 
 	/**
 	 * Ajout d'un nouveau Fichier
