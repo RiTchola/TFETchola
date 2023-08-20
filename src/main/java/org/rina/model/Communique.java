@@ -1,59 +1,25 @@
 package org.rina.model;
 
-import java.time.LocalDate;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.validation.constraints.NotNull;
-
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@NoArgsConstructor
+import java.util.Date;
+
 @Data
-@Entity(name = "TCOMMUNIQUE")
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
 public class Communique {
-	
-	@Id 
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
-	
-	@NotNull
-	@Column(nullable = false)
-	private LocalDate date;
-	
-	@NotNull
-	@Column(nullable = false)
-	private String titre;
-	
-	@NotNull
-	@Column(nullable = false)
-	private String contenu;
-	
-	/**
-	 * jointure à d'autres classes 
-	 */
-	
-	@ManyToOne
-	@JoinColumn(name = "FKEtablissement", nullable = false)
-	private Etablissement etablissement;
-	
-	/**
-	 * Construction 
-	 */
-	
-	public Communique(Integer id, LocalDate date, String titre,String contenu, Etablissement etablissement) {
-		
-		this.id = id;
-		this.date = date;
-		this.titre = titre;
-		this.contenu = contenu;
-		this.etablissement = etablissement;
-	}
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private Date date;
+    private String contenu;
+    @ManyToOne
+    private Etablissement etablissement;
 
 }

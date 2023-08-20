@@ -1,7 +1,0 @@
-package org.rina.model;
-
-public enum TypePersonne {
-	
-	PARENT,ENFANT,PETITFILS,AUTREFAMILLE,AMI,AVOCAT,MEDECIN_TRAITANT,KINESITHERAPEUTE,AUTRE
-
-}
